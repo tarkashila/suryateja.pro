@@ -90,11 +90,12 @@ SQLite but doesn't email — there's a startup warning.
    - Instagram: `https://www.instagram.com/suryateja_manchikatla/`
    - Facebook: `https://www.facebook.com/share/1BN1rS27oD/` (share URL,
      not the canonical profile URL — works but is uglier in OG previews).
-   - **GitHub: TODO.** Surya wants a Vyomai GitHub org and a fresh repo
-     for this project. Once the org is created, the canonical URL will be
-     `https://github.com/<vyomai-org>/suryateja.pro` — wire that into
-     `public/index.html` contact-links (GitHub icon block) and the
-     JSON-LD `sameAs` array. The site currently has no GitHub icon.
+   - GitHub (source repo): `https://github.com/vyomaaistudio/suryateja.pro`
+   - GitHub (account, used in JSON-LD `sameAs`): `https://github.com/vyomaaistudio`
+     — this is the "vyoma ai studio" personal account on the Mac's gh
+     auth list, used as the canonical Vyomai GitHub home until a true
+     org is created. If you migrate to a proper GitHub Organization later
+     (`vyomai-studios` or similar), update both URLs above.
 2. **OG image.** `public/assets/og-image.jpg` is referenced but not yet
    created. Generate a 1200×630 image (portrait + name + tagline).
    `MIGRATION.md` step 6 includes the OG preview check.
