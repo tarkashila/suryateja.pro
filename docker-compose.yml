@@ -1,0 +1,29 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: suryateja-pro:latest
+    container_name: suryateja-pro
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DB_PATH: /data/contact.sqlite
+    ports:
+      # Bind to loopback only — nginx on the host proxies to it.
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - suryateja_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/health >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  suryateja_data:
+    external: false

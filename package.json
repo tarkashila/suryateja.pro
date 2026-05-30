@@ -1,0 +1,20 @@
+{
+  "name": "suryateja-pro",
+  "version": "1.0.0",
+  "private": true,
+  "description": "suryateja.pro — personal site (static + tiny Express backend for contact form)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "NODE_ENV=development node server.js",
+    "check": "node --check server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.5.0",
+    "express": "^4.21.2",
+    "nodemailer": "^6.9.16"
+  }
+}
