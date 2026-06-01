@@ -1,0 +1,98 @@
+# suryateja.pro — Hostinger shared hosting (.htaccess)
+# Apache / LiteSpeed compatible.
+
+DirectoryIndex index.html index.php
+Options -Indexes
+AddDefaultCharset UTF-8
+
+# Sensible MIME types in case the host's default config misses SVG.
+AddType image/svg+xml .svg
+AddType application/manifest+json .webmanifest
+
+# Custom 404 falls back to the landing page.
+ErrorDocument 404 /index.html
+
+# ---------------------------------------------------------------------------
+# Redirects: HTTPS + apex + canonical paths
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Force HTTPS (handles both direct and behind-edge cases via XFP header).
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Force apex — drop www.
+    RewriteCond %{HTTP_HOST} ^www\.suryateja\.pro$ [NC]
+    RewriteRule ^(.*)$ https://suryateja.pro/$1 [L,R=301]
+
+    # Canonicalise /index.html → / and /<dir>/index.html → /<dir>/
+    RewriteRule ^index\.html$ / [L,R=301]
+    RewriteRule ^(.+)/index\.html$ /$1/ [L,R=301]
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Deny access to internal / sensitive files
+# ---------------------------------------------------------------------------
+# Markdown, env, lockfiles, logs, dotfiles — keep them out of the browser.
+<FilesMatch "^(CLAUDE(\.local)?\.md|README\.md|\.env(\..*)?|\.git.*|composer\..*|package(-lock)?\.json|.*\.log|.*\.sqlite.*)$">
+    Require all denied
+</FilesMatch>
+
+# Legacy Hostinger contact-form log (third-party PII from past visitors).
+<Files "form_submissions.txt">
+    Require all denied
+</Files>
+
+# Runtime data dir: rate-limit state + new JSONL submission log.
+RedirectMatch 403 ^/data(/.*)?$
+
+# Archived VPS / Node files — not served, even though the git pull lands them.
+RedirectMatch 403 ^/_vps(/.*)?$
+
+# ---------------------------------------------------------------------------
+# Compression
+# ---------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE \
+        text/html \
+        text/css \
+        text/plain \
+        text/xml \
+        text/javascript \
+        application/javascript \
+        application/json \
+        application/xml \
+        application/xml+rss \
+        image/svg+xml
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Caching
+# ---------------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault                              "access plus 1 day"
+    ExpiresByType text/html                     "access plus 5 minutes"
+    ExpiresByType text/css                      "access plus 30 days"
+    ExpiresByType application/javascript        "access plus 30 days"
+    ExpiresByType image/svg+xml                 "access plus 30 days"
+    ExpiresByType image/jpeg                    "access plus 30 days"
+    ExpiresByType image/png                     "access plus 30 days"
+    ExpiresByType image/webp                    "access plus 30 days"
+    ExpiresByType application/manifest+json     "access plus 7 days"
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Security headers
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options   "nosniff"
+    Header set X-Frame-Options          "SAMEORIGIN"
+    Header set Referrer-Policy          "strict-origin-when-cross-origin"
+    Header set Permissions-Policy       "geolocation=(), microphone=(), camera=()"
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+    # Allow JSON contact endpoint to be called only from same origin.
+    Header set Cross-Origin-Resource-Policy "same-origin"
+</IfModule>

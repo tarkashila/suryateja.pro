@@ -1,11 +1,6 @@
 node_modules/
 .env
 .env.local
-data/
-*.sqlite
-*.sqlite-journal
-*.sqlite-wal
-*.sqlite-shm
 .DS_Store
 .idea/
 .vscode/
@@ -13,7 +8,17 @@ npm-debug.log*
 yarn-debug.log*
 CLAUDE.local.md
 
-# Historical Hostinger artifacts — kept locally for reference, never published.
-# form_submissions.txt holds third-party PII (names/emails of past contact-form
-# senders). Do NOT commit, even to a private repo.
+# Runtime data — created on first form submission. Never commit.
+# Holds the JSONL submission log + rate-limit state.
+data/
+
+# SQLite artifacts (only used by the archived _vps/ Express server, but ignored
+# anywhere they appear).
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+
+# Historical Hostinger artifact — third-party PII from the old PHP contact
+# form. Kept locally for cold storage; NEVER published.
 form_submissions.txt

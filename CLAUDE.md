@@ -1,7 +1,7 @@
 # suryateja.pro — project memory
 
-> Personal site for Suryateja Manchikatla. Static HTML + tiny Express
-> backend for contact form. Self-hosted on VPS behind Cloudflare.
+> Personal site for Suryateja Manchikatla. Static HTML + PHP contact
+> handler. Deployed to **Hostinger shared hosting** via git pull.
 
 ---
 
@@ -12,16 +12,58 @@
   Plus a `/now/` page.
 - Single page; no blog, no CMS, no multi-page nav. Out of scope.
 
-## Stack
+## Stack — current (Hostinger)
 
 - **Frontend**: vanilla HTML / CSS / minimal JS. No bundler, no webfonts.
   Editorial serif (system stack: Iowan Old Style → Palatino → Georgia)
   for headings, system sans for body.
-- **Backend**: Node 20, Express 4, better-sqlite3 for storage,
-  nodemailer for Gmail SMTP. Single `server.js`.
-- **Container**: Node 20 Alpine, multi-stage isn't worth it here.
-  Named volume `suryateja_data` for `/data/contact.sqlite`.
-- **Edge**: Cloudflare proxied → nginx on VPS → `127.0.0.1:3000`.
+- **Backend**: a single `contact.php` for the form. Uses PHP's `mail()`
+  to deliver to `emailsuryateja.m@gmail.com`. Stores every submission as
+  a JSON line in `data/contact_submissions.jsonl`. File-based rate
+  limit + honeypot.
+- **Hosting**: Hostinger shared (PHP 8.2). Apache / LiteSpeed. No
+  Docker, no Node.js, no nginx — `.htaccess` does the security headers,
+  redirects, and access denies.
+- **DNS / TLS**: Hostinger DNS + Hostinger's free SSL (or Cloudflare
+  proxied in front, if/when added).
+- **Deploy**: Hostinger's hPanel → Git → pulls `main` from
+  `https://github.com/vyomaaistudio/suryateja.pro` into
+  `public_html/`. Repo root IS public_html.
+
+## Repo layout
+
+```
+/                       # repo root = Hostinger public_html
+├── index.html
+├── contact.php         # contact form handler
+├── .htaccess           # redirects, security headers, deny rules
+├── now/
+│   └── index.html      # /now page
+├── assets/
+│   ├── styles.css
+│   ├── main.js
+│   ├── portrait.jpg
+│   └── favicon.svg
+├── robots.txt
+├── sitemap.xml
+├── data/               # runtime — gitignored, .htaccess-blocked
+│   ├── contact_submissions.jsonl   (created on first submission)
+│   └── ratelimit.json              (created on first submission)
+├── CLAUDE.md           # this file — .htaccess-blocked
+└── _vps/               # archived Node/Docker stack, kept for future
+    ├── server.js
+    ├── package.json
+    ├── Dockerfile
+    ├── docker-compose.yml
+    ├── deploy.sh
+    ├── nginx.vhost.example.conf
+    ├── .env.example
+    ├── .dockerignore
+    └── MIGRATION.md
+```
+
+`_vps/` is denied via `.htaccess` so it never serves over the web —
+but it's there if the hosting decision is reversed.
 
 ## Positioning rules — DO NOT DEVIATE
 
@@ -42,137 +84,146 @@ Source of truth for how I'm described on this site:
 - No marketing copy that promises outcomes ("we'll help you win",
   "guaranteed results"). Describe process, not promised results.
 
-## Deploy
+## Deploy — Hostinger git pull
 
-- `./deploy.sh` (rsync to VPS, `docker compose up -d --build`, health check).
-- Override target with env: `VPS_HOST=1.2.3.4 VPS_PATH=/opt/x ./deploy.sh`.
-- The script syntax-checks `server.js` before pushing, backs up the
-  remote SQLite DB, and verifies `/health` after rebuild.
+One-time setup in hPanel:
 
-## Env vars (set in `.env` on VPS, not in image)
+1. hPanel → Advanced → **Git** → Create repository.
+2. Repository address: `https://github.com/vyomaaistudio/suryateja.pro`
+3. Branch: `main`
+4. Install path: `/public_html` (so repo root maps to public_html).
+5. After first deploy, set up the auto-deploy webhook URL in the
+   GitHub repo (Settings → Webhooks → add the URL hPanel shows).
 
-- `NODE_ENV=production`
-- `PORT=3000`
-- `DB_PATH=/data/contact.sqlite`
-- `GMAIL_USER=emailsuryateja.m@gmail.com`
-- `GMAIL_APP_PASSWORD=…` (16-char Gmail App Password)
-- `CONTACT_TO=emailsuryateja.m@gmail.com`
-- `CONTACT_FROM_NAME=suryateja.pro contact form`
+After that, **every push to `main` deploys automatically**.
 
-If Gmail credentials are absent, the server still stores submissions in
-SQLite but doesn't email — there's a startup warning.
+**One-time Hostinger cleanup (do this BEFORE or RIGHT AFTER the first
+git pull):**
+
+The old PHP site left files in `public_html/` that are NOT in this repo
+and won't be removed by `git pull`. Delete via hPanel File Manager or
+SSH:
+
+```
+default.php
+header.php
+index.php           (old typed-text PHP — the new index.html replaces it)
+script.js
+style.css
+test
+Images/
+form_submissions.txt   ← CRITICAL: contains 347 KB of third-party PII,
+                          publicly accessible right now.
+```
+
+If `index.php` is not deleted, Apache's `DirectoryIndex` should still
+prefer the new `index.html` (per the `.htaccess` here), but having both
+present is confusing — delete it.
+
+## Env vars
+
+None required for the current PHP setup. The mail destination,
+sender, and rate-limit values are hard-coded at the top of
+`contact.php`. (The `.env`-based Express setup is preserved under
+`_vps/` for the future.)
 
 ## Routes
 
-- `/` → `public/index.html`
-- `/now/` → `public/now/index.html`
+- `/` → `index.html`
+- `/now/` → `now/index.html`
 - `/sitemap.xml`, `/robots.txt` → static
-- `/health` → `{ ok: true, env, time }` — used by Docker HEALTHCHECK and
-  deploy verification. nginx serves it without access logs.
-- `POST /api/contact` → JSON: `{ name, email, message, company }`
-  (company is a honeypot). Rate-limited to 5 / 10 min per IP.
+- `POST /contact.php` → JSON `{ name, email, message, company }`
+  (company is honeypot). Rate-limited to 5 / 10 min per IP.
 
 ## Visual treatment — locked
 
 - Dark theme. `--bg: #0e0e12`, `--accent: #d4a24c` (soft amber/gold).
 - Editorial serif headings (system stack — no webfont download).
 - Sections max-width 1100px, narrow articles 760px.
-- Subtle scroll-fade via IntersectionObserver only. No typed text.
-  No counters. No parallax.
+- Subtle scroll-fade via IntersectionObserver (progressive
+  enhancement — content is visible by default without JS).
 - Single accent — amber/gold throughout. No agency-template gradients.
 - Portrait: soft-cornered rectangle, no neon glow.
 
-## TODOs and placeholders to fix
+## Real social URLs (confirmed)
 
-1. **Real social URLs.** Confirmed by Surya 2026-05-29:
-   - LinkedIn: `https://www.linkedin.com/in/suryateja-ai/`
-   - X: `https://x.com/suryatejaaibuff`
-   - Instagram: `https://www.instagram.com/suryateja_manchikatla/`
-   - Facebook: `https://www.facebook.com/share/1BN1rS27oD/` (share URL,
-     not the canonical profile URL — works but is uglier in OG previews).
-   - GitHub (source repo): `https://github.com/vyomaaistudio/suryateja.pro`
-   - GitHub (account, used in JSON-LD `sameAs`): `https://github.com/vyomaaistudio`
-     — this is the "vyoma ai studio" personal account on the Mac's gh
-     auth list, used as the canonical Vyomai GitHub home until a true
-     org is created. If you migrate to a proper GitHub Organization later
-     (`vyomai-studios` or similar), update both URLs above.
-2. **OG image.** `public/assets/og-image.jpg` is referenced but not yet
-   created. Generate a 1200×630 image (portrait + name + tagline).
-   `MIGRATION.md` step 6 includes the OG preview check.
-3. **`apple-touch-icon.png`** — generate a 180×180 PNG from the favicon
+- LinkedIn: `https://www.linkedin.com/in/suryateja-ai/`
+- X: `https://x.com/suryatejaaibuff`
+- Instagram: `https://www.instagram.com/suryateja_manchikatla/`
+- Facebook: `https://www.facebook.com/share/1BN1rS27oD/` (share URL —
+  works but uglier in OG previews than a canonical profile URL).
+- GitHub (source repo): `https://github.com/vyomaaistudio/suryateja.pro`
+- GitHub (account, used in JSON-LD `sameAs`): `https://github.com/vyomaaistudio`
+  — this is the "vyoma ai studio" personal account on the Mac's gh
+  auth list. If you migrate to a proper GitHub Organization later,
+  update both URLs above.
+
+## TODOs
+
+1. **OG image.** `assets/og-image.jpg` is referenced in the head but
+   not yet created. Generate a 1200×630 image (portrait + name +
+   tagline).
+2. **`apple-touch-icon.png`** — generate a 180×180 PNG from the favicon
    SVG.
-4. **`/now/` page is dated May 2026.** I committed to keeping it fresh —
-   if it goes stale past ~2 months, either update it or delete the page
-   and remove the sitemap entry rather than letting it rot.
+3. **`/now/` page is dated May 2026.** Keep fresh — if it goes stale
+   past ~2 months, either update it or delete the page and remove the
+   sitemap entry rather than letting it rot.
+4. **Hostinger cleanup** (see Deploy section above) — must be done
+   before declaring production fine.
 
 ## Gotchas / what to remember
 
-- `data/` is in `.gitignore` and `.dockerignore`. The SQLite DB lives on
-  the **named volume** `suryateja_data`, not in the image, not in the
-  source tree.
-- `docker-compose.yml` binds port 3000 to `127.0.0.1` only — nginx on
-  the host proxies. Don't expose 3000 publicly.
-- Cloudflare's real IPs are set via `set_real_ip_from` in the nginx
-  vhost so Express rate-limiting and SQLite logging record the real
-  visitor IP, not Cloudflare's.
-- `form_submissions.txt` (347 KB) on the old Hostinger site has
-  historical submissions from the PHP version — preserve it offline.
-  Don't import — schemas differ and it's not worth the effort.
-- The old PHP files (`index.php`, `default.php`, `header.php`,
-  `contact.php`, `style.css`, `script.js`, `Images/`, `test`) are
-  excluded from rsync and Docker via `.dockerignore` and `deploy.sh`
-  `--exclude` flags. Leave them in the working tree for reference until
-  the migration is fully done, then clean up.
-
-## Files
-
-```
-public/
-  index.html              # main landing page
-  now/index.html          # /now page
-  robots.txt
-  sitemap.xml
-  assets/
-    styles.css            # single stylesheet
-    main.js               # minimal JS (fade-in, mobile nav, form)
-    favicon.svg
-    portrait.jpg          # current portrait (copy of Images/IMG_8359.jpeg)
-    og-image.jpg          # TODO — not yet created
-    apple-touch-icon.png  # TODO — not yet created
-server.js                  # Express app
-package.json
-Dockerfile
-docker-compose.yml
-.env.example
-deploy.sh
-nginx.vhost.example.conf
-MIGRATION.md               # Hostinger → VPS + Cloudflare checklist
-CLAUDE.md                  # this file
-```
+- `data/` is in `.gitignore` and `.htaccess`-blocked. Contains JSON
+  Lines of contact submissions + rate-limit state. To read the log on
+  Hostinger: hPanel File Manager → `public_html/data/contact_submissions.jsonl`.
+- The two `gh` CLI accounts on this Mac auto-switch — the Vyomai one
+  is `vyomaaistudio`. **Before any GitHub operation on this repo, run:**
+  `gh auth switch --user vyomaaistudio` (else 404 on edit operations).
+- The repo is currently **public**. Flip to private with:
+  `gh repo edit vyomaaistudio/suryateja.pro --visibility private --accept-visibility-change-consequences`
+- `form_submissions.txt` (347 KB) is on Hostinger AND in the local
+  working tree (gitignored). Don't import — schemas differ. Delete from
+  Hostinger ASAP (PII exposure).
+- The `.htaccess` denies `CLAUDE.md`, `_vps/`, `data/`, `.env*`,
+  `form_submissions.txt`. Anything else you add that shouldn't be web
+  served, add to the `<FilesMatch>` block.
+- PHP's `mail()` deliverability depends on Hostinger handling SPF for
+  `suryateja.pro`. The `From:` is `noreply@suryateja.pro` so this
+  authenticates correctly. If mail starts landing in spam, the next
+  upgrade is PHPMailer + Gmail SMTP (vendored — no Composer needed).
 
 ## Phrasebook — "when user says X"
 
-- "deploy" / "ship it" → run `./deploy.sh`, then read its output.
-- "update /now" → edit `public/now/index.html`, change the
-  `now-meta` date line and the section bullets. Same look + feel.
+- "deploy" / "ship it" → `git push origin main`. Hostinger's git
+  webhook auto-pulls (if you set up the webhook; otherwise click
+  "Deploy" in hPanel → Git).
+- "update /now" → edit `now/index.html`, change the `now-meta` date
+  line and the section bullets. Same look + feel.
 - "add a section" → it's a single landing page; before adding a section
   ask if it should sit in nav. Don't add hidden sections.
 - "change the accent colour" → edit `--accent` / `--accent-hover` /
-  `--accent-soft` / `--accent-line` in `public/assets/styles.css`. The
+  `--accent-soft` / `--accent-line` in `assets/styles.css`. The
   amber/gold was chosen 2026-05-29 — don't switch without confirming.
-- "fix the seo" → start with `public/index.html` `<head>` and the
-  JSON-LD block, then `sitemap.xml`. Submit changes to Google Search
-  Console.
+- "fix the seo" → start with `index.html` `<head>` and the JSON-LD
+  block, then `sitemap.xml`. Submit changes to Google Search Console.
+- "move to VPS" → everything for that is preserved under `_vps/`. The
+  original migration checklist is `_vps/MIGRATION.md`. Path:
+  1. Provision VPS, copy `_vps/*` to a fresh project root.
+  2. Move `index.html`, `now/`, `assets/`, `robots.txt`, `sitemap.xml`
+     into a `public/` directory.
+  3. Rebuild `contact.php` logic in `_vps/server.js` (already done).
+  4. Follow `_vps/MIGRATION.md`.
 
 ## Open follow-ups (not blockers, but worth doing)
 
-- Add Cloudflare Authenticated Origin Pull (commented in
-  `nginx.vhost.example.conf`) so only Cloudflare can hit the origin.
-- Add basic Cloudflare Cache Rule: cache HTML for 5 min, CSS/JS/IMG
-  for 30 days at the edge.
-- Consider adding a `/uses` page once `/now` has been kept fresh for a
-  couple of cycles.
+- Add Cloudflare in front of Hostinger for caching + DDoS, even on
+  shared hosting. (DNS-only or proxied — both work.)
+- Set up Google Search Console + Bing Webmaster Tools after first
+  deploy. Submit `sitemap.xml`.
+- Generate the OG image (1200×630) for proper link previews on
+  LinkedIn / WhatsApp / Slack.
+- Consider PHPMailer + Gmail SMTP if Hostinger deliverability sucks.
 
 ---
 
-*Last updated: 2026-05-29*
+*Last updated: 2026-06-01 — pivoted from VPS to Hostinger architecture.*
