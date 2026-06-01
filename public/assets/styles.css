@@ -543,19 +543,22 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; letter-spacin
 }
 .now-back:hover { color: var(--accent-hover); }
 
-/* Fade-in observer */
-.fade-in {
+/* Fade-in observer — progressive enhancement.
+   Default is fully visible so the page works without JS or with strict CSP.
+   The .js class is added inline in <head> before the stylesheet parses;
+   only then do we hide and let main.js fade things in. */
+.js .fade-in {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity .7s ease, transform .7s ease;
   will-change: opacity, transform;
 }
-.fade-in.is-visible {
+.js .fade-in.is-visible {
   opacity: 1;
   transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .fade-in { opacity: 1; transform: none; transition: none; }
+  .js .fade-in { opacity: 1; transform: none; transition: none; }
 }
 
 /* Responsive */
