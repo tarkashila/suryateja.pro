@@ -591,3 +591,137 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; letter-spacin
   background: var(--accent);
   color: #1a1300;
 }
+
+/* ---------------------------------------------------------------------------
+   Multi-page additions
+   - .section-page: detail pages (no border-top on the first section, since
+     there's no hero above it)
+   - .page-next: end-of-page "what to do next" nav (continue + alt button)
+   - .explore-grid: asymmetric tile grid on the home page (1 lead + 4 small)
+   - aria-current=page styling for primary nav
+--------------------------------------------------------------------------- */
+
+.section-page { border-top: none; }
+.section-page h1 {
+  font-size: clamp(32px, 4.4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.018em;
+  margin: 0 0 1em;
+}
+.section-page .section-head h1 { margin: 0 0 12px; }
+
+.page-next {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+
+.primary-nav a[aria-current="page"],
+.mobile-nav a[aria-current="page"] {
+  color: var(--accent);
+}
+.primary-nav a[aria-current="page"]::after {
+  background: var(--accent);
+  transform: scaleX(1);
+}
+
+/* Explore tiles (home page) — asymmetric, never a generic 3-card row */
+.section-explore { padding-top: clamp(48px, 8vw, 88px); }
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 18px;
+}
+.explore-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 28px 28px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+  min-height: 180px;
+}
+.explore-tile:hover {
+  border-color: var(--accent-line);
+  background: var(--surface-elev);
+  transform: translateY(-2px);
+  color: var(--text);
+}
+.explore-tile h3 {
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.2;
+  margin: 0;
+}
+.explore-eyebrow {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+.explore-desc {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  max-width: 54ch;
+}
+.explore-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: auto;
+}
+.explore-tile:hover .explore-cta { color: var(--accent-hover); }
+.explore-cta span { transition: transform .15s ease; display: inline-block; }
+.explore-tile:hover .explore-cta span { transform: translateX(4px); }
+
+.explore-tile--lead {
+  grid-row: span 2;
+  min-height: 100%;
+  background: linear-gradient(180deg, var(--surface-elev) 0%, var(--surface) 100%);
+}
+.explore-tile--lead h3 {
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.15;
+}
+.explore-tile--quiet {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  min-height: 0;
+  padding: 22px 28px;
+  background: transparent;
+  border-style: dashed;
+}
+.explore-tile--quiet h3 {
+  font-size: clamp(18px, 1.8vw, 20px);
+  flex: 1;
+  min-width: 0;
+}
+.explore-tile--quiet .explore-eyebrow { white-space: nowrap; }
+.explore-tile--quiet .explore-cta { margin-top: 0; margin-left: auto; }
+
+@media (max-width: 760px) {
+  .explore-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .explore-tile--lead { grid-row: auto; }
+  .explore-tile--quiet { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .explore-tile--quiet .explore-cta { margin-left: 0; }
+}
+

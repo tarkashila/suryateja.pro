@@ -1,8 +1,8 @@
 # suryateja.pro — Hostinger shared hosting (.htaccess)
 # Apache / LiteSpeed compatible.
 
-DirectoryIndex index.html index.php
-Options -Indexes
+DirectoryIndex index.php index.html
+Options -Indexes -MultiViews
 AddDefaultCharset UTF-8
 
 # Sensible MIME types in case the host's default config misses SVG.
@@ -50,6 +50,10 @@ RedirectMatch 403 ^/data(/.*)?$
 
 # Archived VPS / Node files — not served, even though the git pull lands them.
 RedirectMatch 403 ^/_vps(/.*)?$
+
+# PHP partials — shared <head>, header, footer. Included server-side only,
+# never served as standalone URLs.
+RedirectMatch 403 ^/_partials(/.*)?$
 
 # ---------------------------------------------------------------------------
 # Compression

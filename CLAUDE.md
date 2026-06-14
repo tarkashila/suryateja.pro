@@ -30,22 +30,37 @@
   `https://github.com/vyomaaistudio/suryateja.pro` into
   `public_html/`. Repo root IS public_html.
 
-## Repo layout
+## Repo layout — multi-page
 
 ```
 /                       # repo root = Hostinger public_html
-├── index.html
-├── contact.php         # contact form handler
-├── .htaccess           # redirects, security headers, deny rules
+├── index.php           # / — home (hero + asymmetric tile grid)
+├── about/
+│   └── index.php       # /about/
+├── ventures/
+│   └── index.php       # /ventures/
+├── stack/
+│   └── index.php       # /stack/
+├── services/
+│   └── index.php       # /services/
+├── contact/
+│   └── index.php       # /contact/  (form lives here)
 ├── now/
-│   └── index.html      # /now page
+│   └── index.php       # /now/      (converted from .html)
+├── api/
+│   └── contact.php     # POST endpoint for the contact form
+├── _partials/          # shared chrome — .htaccess-blocked
+│   ├── head.php        # <head> + open <body> + skip link
+│   ├── header.php      # site header + nav + aria-current
+│   └── footer.php      # site footer + closing tags + main.js
+├── .htaccess           # redirects, security headers, deny rules
 ├── assets/
 │   ├── styles.css
-│   ├── main.js
+│   ├── main.js         # form fetch points at /api/contact.php
 │   ├── portrait.jpg
 │   └── favicon.svg
 ├── robots.txt
-├── sitemap.xml
+├── sitemap.xml         # lists all 7 routes
 ├── data/               # runtime — gitignored, .htaccess-blocked
 │   ├── contact_submissions.jsonl   (created on first submission)
 │   └── ratelimit.json              (created on first submission)
@@ -62,8 +77,33 @@
     └── MIGRATION.md
 ```
 
-`_vps/` is denied via `.htaccess` so it never serves over the web —
-but it's there if the hosting decision is reversed.
+`_vps/` and `_partials/` are both denied via `.htaccess` so they never
+serve over the web — `_partials/` is server-side only (included by
+every page), `_vps/` is preserved for the future.
+
+### How a page is built
+
+Every page sets a handful of variables (title, description, canonical,
+optional JSON-LD) then includes the three partials in order:
+
+```php
+<?php
+$page_title       = 'About — Suryateja Manchikatla';
+$page_description = '…';
+$page_canonical   = 'https://suryateja.pro/about/';
+$current_page     = 'about';    // drives aria-current on the nav
+
+include $_SERVER['DOCUMENT_ROOT'] . '/_partials/head.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
+?>
+<main id="main"> … page content … </main>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/_partials/footer.php'; ?>
+```
+
+That's the DRY contract. To add a new top-level page: create
+`<slug>/index.php`, set the four variables, write the `<main>`, add the
+slug to `_partials/header.php`'s `$nav_items` array, and add it to
+`sitemap.xml`.
 
 ## Positioning rules — DO NOT DEVIATE
 
@@ -129,11 +169,17 @@ sender, and rate-limit values are hard-coded at the top of
 
 ## Routes
 
-- `/` → `index.html`
-- `/now/` → `now/index.html`
-- `/sitemap.xml`, `/robots.txt` → static
-- `POST /contact.php` → JSON `{ name, email, message, company }`
-  (company is honeypot). Rate-limited to 5 / 10 min per IP.
+| Path | File | Purpose |
+|---|---|---|
+| `/` | `index.php` | Home — hero + asymmetric tile preview grid |
+| `/about/` | `about/index.php` | Three paragraphs about Surya, closing line |
+| `/ventures/` | `ventures/index.php` | 4 venture cards (pdfonweb, leaselylite, Karibu, Scholar Africa) |
+| `/stack/` | `stack/index.php` | 5 category lists (Engineering, Infra, Ops, AI, SEO) |
+| `/services/` | `services/index.php` | 3 service cards + side-engagements disclaimer |
+| `/contact/` | `contact/index.php` | Form + social links |
+| `/now/` | `now/index.php` | What I'm focused on this month |
+| `/sitemap.xml`, `/robots.txt` | static | |
+| `POST /api/contact.php` | `api/contact.php` | JSON `{ name, email, message, company }` (company is honeypot). Rate-limited to 5 / 10 min per IP. |
 
 ## Visual treatment — locked
 
@@ -184,9 +230,15 @@ sender, and rate-limit values are hard-coded at the top of
 - `form_submissions.txt` (347 KB) is on Hostinger AND in the local
   working tree (gitignored). Don't import — schemas differ. Delete from
   Hostinger ASAP (PII exposure).
-- The `.htaccess` denies `CLAUDE.md`, `_vps/`, `data/`, `.env*`,
-  `form_submissions.txt`. Anything else you add that shouldn't be web
-  served, add to the `<FilesMatch>` block.
+- The `.htaccess` denies `CLAUDE.md`, `_vps/`, `_partials/`, `data/`,
+  `.env*`, `form_submissions.txt`. Anything else you add that shouldn't
+  be web served, add to the `<FilesMatch>` block or a `RedirectMatch
+  403`.
+- `Options -MultiViews` is set in `.htaccess` so that a request to
+  `/contact` doesn't extension-match `/contact.php` — it falls through
+  to mod_dir's directory redirect, which sends `/contact` → `/contact/`
+  (the actual page). The form endpoint is at `/api/contact.php` to
+  avoid the same name collision entirely.
 - PHP's `mail()` deliverability depends on Hostinger handling SPF for
   `suryateja.pro`. The `From:` is `noreply@suryateja.pro` so this
   authenticates correctly. If mail starts landing in spam, the next
@@ -197,15 +249,24 @@ sender, and rate-limit values are hard-coded at the top of
 - "deploy" / "ship it" → `git push origin main`. Hostinger's git
   webhook auto-pulls (if you set up the webhook; otherwise click
   "Deploy" in hPanel → Git).
-- "update /now" → edit `now/index.html`, change the `now-meta` date
+- "update /now" → edit `now/index.php`, change the `now-meta` date
   line and the section bullets. Same look + feel.
-- "add a section" → it's a single landing page; before adding a section
-  ask if it should sit in nav. Don't add hidden sections.
+- "add a page" → create `<slug>/index.php`, copy the boilerplate from
+  an existing page (e.g. `about/index.php`), set the four `$page_*`
+  variables, add the slug to the `$nav_items` array in
+  `_partials/header.php`, add to `sitemap.xml`. That's all the
+  plumbing — content goes inside `<main id="main">`.
+- "add a section to an existing page" → edit that page's `<main>`.
+  Don't add sections to the home page without asking first — the home
+  is intentionally minimal (hero + tile grid).
 - "change the accent colour" → edit `--accent` / `--accent-hover` /
   `--accent-soft` / `--accent-line` in `assets/styles.css`. The
   amber/gold was chosen 2026-05-29 — don't switch without confirming.
-- "fix the seo" → start with `index.html` `<head>` and the JSON-LD
-  block, then `sitemap.xml`. Submit changes to Google Search Console.
+- "fix the seo" → all `<head>` content is in `_partials/head.php` and
+  driven by per-page `$page_title` / `$page_description` /
+  `$page_canonical` / `$page_ldjson` variables. Update those on the
+  affected page(s), then `sitemap.xml`. Submit changes to Google
+  Search Console.
 - "move to VPS" → everything for that is preserved under `_vps/`. The
   original migration checklist is `_vps/MIGRATION.md`. Path:
   1. Provision VPS, copy `_vps/*` to a fresh project root.
@@ -226,4 +287,5 @@ sender, and rate-limit values are hard-coded at the top of
 
 ---
 
-*Last updated: 2026-06-01 — pivoted from VPS to Hostinger architecture.*
+*Last updated: 2026-06-14 — split single page into multi-page architecture
+(home + 6 detail pages) using PHP includes for shared chrome.*

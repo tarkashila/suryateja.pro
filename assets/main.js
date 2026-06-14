@@ -82,7 +82,7 @@
     status.textContent = '';
     status.classList.remove('is-success', 'is-error');
 
-    fetch('/contact.php', {
+    fetch('/api/contact.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
