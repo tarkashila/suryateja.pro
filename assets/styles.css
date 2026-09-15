@@ -2,26 +2,28 @@
    Plus Jakarta Sans, warm neutrals, gold accent. Single CSS file. */
 
 :root {
-  /* Tarkashila palette */
-  --white: #ffffff;
-  --bg: #ffffff;
-  --bg-soft: #f7f6f4;
-  --surface: #f7f6f4;
-  --surface-elev: #eceae6;
-  --border: rgba(10, 9, 8, 0.08);
-  --border-strong: rgba(10, 9, 8, 0.18);
+  /* One body, two souls: shares Tarkashila's gold + ink + type, but the
+     ground is warm paper (not crisp white) so the person reads warmer than
+     the institution. OKLCH neutrals tinted toward the gold hue. */
+  --white: oklch(0.995 0.004 85);   /* warm lift for hovers, not pure white */
+  --bg: oklch(0.983 0.008 84);      /* warm paper */
+  --bg-soft: oklch(0.968 0.010 84);
+  --surface: oklch(0.966 0.010 84);
+  --surface-elev: oklch(0.995 0.004 85);
+  --border: oklch(0.20 0.012 70 / 0.10);
+  --border-strong: oklch(0.20 0.012 70 / 0.20);
 
-  --text: #0a0908;
-  --text-muted: #3d3b38;
-  --text-dim: #9a9691;
+  --text: oklch(0.205 0.014 66);    /* warm near-black, sibling to #0a0908 */
+  --text-muted: oklch(0.44 0.014 66);
+  --text-dim: oklch(0.62 0.012 66);
 
-  --accent: #c19a28;          /* gold */
-  --accent-hover: #a2801d;    /* darker gold for hover on light */
-  --accent-soft: rgba(193, 154, 40, 0.10);
-  --accent-line: rgba(193, 154, 40, 0.34);
-  --green: #5b8c4a;
+  --accent: #c19a28;                 /* brand gold — shared body, kept exact */
+  --accent-hover: oklch(0.60 0.11 84);
+  --accent-soft: oklch(0.685 0.12 88 / 0.12);
+  --accent-line: oklch(0.685 0.12 88 / 0.34);
+  --green: oklch(0.60 0.10 140);
 
-  --ink: #0a0908;
+  --ink: oklch(0.185 0.014 66);
 
   /* Plus Jakarta Sans everywhere — matches Tarkashila. Serif var kept as an
      alias so existing markup hooks keep working, but points at the sans stack. */
@@ -239,12 +241,6 @@ h1 { letter-spacing: -0.03em; }
   align-items: center;
 }
 .hero-copy { max-width: 640px; }
-.hero h1 {
-  font-size: clamp(40px, 6.2vw, 72px);
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  margin: 0 0 22px;
-}
 .lede {
   font-size: clamp(18px, 2vw, 21px);
   line-height: 1.55;
@@ -257,31 +253,46 @@ h1 { letter-spacing: -0.03em; }
 .lede a:hover { color: var(--accent-hover); }
 .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
 
-/* Hero stat row — mirrors Tarkashila's "6+ / 3 / 48h" strip */
-.hero-stats {
+/* First-person creed — the soul move. Echoes Tarkashila's "we build software,
+   we also run it" back in the singular. Oversized, one gold-weighted phrase. */
+.hero-creed {
+  font-size: clamp(26px, 3.6vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  margin: 0 0 18px;
+  max-width: 18ch;
+  color: var(--text);
+}
+.hero-creed .accent {
+  color: var(--accent-hover);
+  position: relative;
+  white-space: nowrap;
+}
+.hero-creed .accent::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0.08em;
+  height: 0.14em;
+  background: var(--accent);
+  opacity: 0.28;
+  border-radius: 2px;
+}
+
+/* Quiet metadata line — personal facts, not a big-number stat template */
+.hero-meta {
+  margin: clamp(28px, 4vw, 40px) 0 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--text-dim);
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(24px, 5vw, 48px);
-  margin-top: clamp(36px, 5vw, 52px);
-  padding-top: 28px;
-  border-top: 1px solid var(--border);
+  gap: 8px 14px;
+  align-items: center;
 }
-.hero-stat { display: flex; flex-direction: column; gap: 6px; }
-.hero-stat .num {
-  order: -1;                 /* number above its <dt> label */
-  margin: 0;
-  font-size: clamp(24px, 3vw, 32px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-.hero-stat .lbl {
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  font-weight: 700;
-}
+.hero-meta b { color: var(--text-muted); font-weight: 600; }
+.hero-meta .sep { color: var(--accent); opacity: 0.7; }
 
 .hero-portrait {
   margin: 0;

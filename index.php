@@ -43,23 +43,27 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy fade-in">
-        <p class="eyebrow">Founder, Tarkashila · Hyderabad &amp; East Africa</p>
-        <h1>Suryateja Manchikatla</h1>
+        <p class="eyebrow">Suryateja Manchikatla · Founder, Tarkashila</p>
+        <h1 class="hero-creed">I build software.<br />Then I <span class="accent">run</span> it.</h1>
         <p class="lede">
-          I build and run software that solves operational problems. Founder of
-          <a href="https://tarkashila.com" rel="noopener">Tarkashila</a> —
-          the studio behind <a href="https://pdfonweb.com" rel="noopener">pdfonweb</a>
-          and <a href="https://leaselylite.com" rel="noopener">leaselylite</a>.
+          I'm the founder of <a href="https://tarkashila.com" rel="noopener">Tarkashila</a>,
+          a studio that ships and operates its own products, including
+          <a href="https://pdfonweb.com" rel="noopener">pdfonweb</a> and
+          <a href="https://leaselylite.com" rel="noopener">leaselylite</a>.
+          Because I run what I build, I know what software looks like under
+          real-world pressure, not just at handover.
         </p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="/ventures/">See what I'm building</a>
           <a class="btn btn-ghost" href="/contact/">Start a conversation</a>
         </div>
-        <dl class="hero-stats" aria-label="At a glance">
-          <div class="hero-stat"><dt class="lbl">Products shipped</dt><dd class="num">6+</dd></div>
-          <div class="hero-stat"><dt class="lbl">Countries</dt><dd class="num">3</dd></div>
-          <div class="hero-stat"><dt class="lbl">Direct access</dt><dd class="num">100%</dd></div>
-        </dl>
+        <p class="hero-meta">
+          <b>Hyderabad &amp; East Africa</b>
+          <span class="sep" aria-hidden="true">/</span>
+          <span>product, engineering, CRM, SEO</span>
+          <span class="sep" aria-hidden="true">/</span>
+          <span>one operator, end to end</span>
+        </p>
       </div>
       <figure class="hero-portrait fade-in">
         <img

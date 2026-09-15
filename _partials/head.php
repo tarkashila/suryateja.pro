@@ -17,7 +17,7 @@ function _h(string $s): string { return htmlspecialchars($s, ENT_QUOTES | ENT_SU
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#f7f2e9" />
   <meta name="color-scheme" content="light" />
 
   <!-- Mark JS as available BEFORE the stylesheet parses so .fade-in starts hidden only when JS will run. -->
