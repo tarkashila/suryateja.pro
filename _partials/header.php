@@ -15,7 +15,7 @@ $nav_items = [
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="/" aria-label="Suryateja Manchikatla — home">
-      <span class="brand-mark">ST</span>
+      <span class="brand-mark">S.</span>
       <span class="brand-word">Suryateja</span>
     </a>
     <nav class="primary-nav" aria-label="Primary">

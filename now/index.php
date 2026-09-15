@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Now — Suryateja Manchikatla';
-$page_description = "What I'm focused on this month — building pdfonweb and leaselylite, CRM work at Karibu, contributions to Scholar Africa.";
+$page_description = "What I'm focused on this month — Tarkashila, building pdfonweb and leaselylite, CRM work at Karibu, contributions to Scholar Africa.";
 $page_canonical   = 'https://suryateja.pro/now/';
 $page_og_type     = 'article';
 $page_class       = 'now-page';
@@ -23,7 +23,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
 
 <main id="main">
   <div class="container narrow">
-    <p class="now-meta">Last updated: May 2026 · Arusha, Tanzania</p>
+    <p class="now-meta">Last updated: September 2026 · Hyderabad &amp; East Africa</p>
     <h1>What I'm working on right now.</h1>
 
     <p>
@@ -33,7 +33,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
       schedule.
     </p>
 
-    <h2>Building</h2>
+    <h2>Building at Tarkashila</h2>
     <ul>
       <li>
         <strong>pdfonweb</strong> — wiring up AI-redesigned flipbook
@@ -46,8 +46,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
         ledger loop.
       </li>
       <li>
-        <strong>suryateja.pro</strong> — this site, rebuilt from scratch
-        and migrated from the old PHP template.
+        <strong>Tarkashila</strong> — standing up the studio's own
+        surface and bringing my personal site (this one) in sync with it.
       </li>
     </ul>
 

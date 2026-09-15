@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Services — Suryateja Manchikatla';
-$page_description = 'CRM Consulting, Custom Software Development, and SEO — side engagements alongside my full-time role at Karibu Camps & Lodges.';
+$page_description = 'CRM consulting, custom software development, and SEO — selective engagements through Tarkashila, with direct founder access.';
 $page_canonical   = 'https://suryateja.pro/services/';
 $page_og_type     = 'website';
 $current_page     = 'services';
@@ -25,7 +25,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
     <div class="container">
       <header class="section-head">
         <p class="eyebrow">Services</p>
-        <h1>How I work with clients.</h1>
+        <h1>How I work with clients through Tarkashila.</h1>
       </header>
 
       <div class="service-grid">
@@ -61,8 +61,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
       </div>
 
       <p class="services-disclaimer">
-        Side engagements only, alongside my full-time role at Karibu Camps
-        &amp; Lodges.
+        Selective engagements through Tarkashila. The person you speak with is
+        the person building your system — no account managers, no hand-offs.
       </p>
 
       <nav class="page-next" aria-label="Continue">

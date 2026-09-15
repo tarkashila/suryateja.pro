@@ -14,9 +14,10 @@
 
 ## Stack — current (Hostinger)
 
-- **Frontend**: vanilla HTML / CSS / minimal JS. No bundler, no webfonts.
-  Editorial serif (system stack: Iowan Old Style → Palatino → Georgia)
-  for headings, system sans for body.
+- **Frontend**: vanilla HTML / CSS / minimal JS. No bundler.
+  **Plus Jakarta Sans** (Google Fonts) everywhere — headings 700/800 with
+  tight tracking, body 400/500. Matches tarkashila.com. (The old "no webfonts /
+  editorial serif" rule was dropped 2026-09-16 in the Tarkashila rebrand.)
 - **Backend**: a single `contact.php` for the form. Uses PHP's `mail()`
   to deliver to `emailsuryateja.m@gmail.com`. Stores every submission as
   a JSON line in `data/contact_submissions.jsonl`. File-based rate
@@ -107,18 +108,23 @@ slug to `_partials/header.php`'s `$nav_items` array, and add it to
 
 ## Positioning rules — DO NOT DEVIATE
 
+**BRAND: the company is Tarkashila (Tarkashila Private Limited, Hyderabad,
+EST. 2025). "Vyoma AI Studios / Vyomai Studios" is DROPPED — never mention it
+anywhere.** Site is in sync with tarkashila.com (rebrand 2026-09-16).
+
 Source of truth for how I'm described on this site:
 
-- Identity word: **Entrepreneur** OR **Building [product]**. Never
-  "Founder" by itself — pdfonweb and leaselylite are recently launched
-  and registration is in progress. "Founder" is reserved for after
-  registration of Vyomai Studios.
+- Identity word: **Founder** — "Founder of Tarkashila". This is now correct:
+  Tarkashila Private Limited is registered. (The old rule reserving "Founder"
+  was tied to Vyomai Studios, which no longer exists.)
+- pdfonweb and leaselylite are **Tarkashila products** — the studio designs,
+  builds, AND runs its own products ("we build software, we also run it").
 - For Scholar Africa: "part of the team building" — not founder.
-- For Karibu: "Digital & CRM Lead" — partner with brand/social team on
-  data and reporting. Don't claim I run their socials.
-- LinkedIn-style headline format used on the hero:
-  "Building pdfonweb + leaselylite · CRM, automation & product at
-  Karibu Camps & Lodges"
+- For Karibu: CRM & automation lead / partner — data and reporting. Don't
+  claim I run their socials.
+- Hero eyebrow format: "FOUNDER, TARKASHILA · HYDERABAD & EAST AFRICA".
+- Geography: Hyderabad, India & East Africa (products shipped across India,
+  Kenya, Tanzania). (Old site said "Arusha, Tanzania" only — superseded.)
 - Don't stack tool names (n8n, WordPress) as identity. Tools are stack
   details, not positioning.
 - No marketing copy that promises outcomes ("we'll help you win",
@@ -181,15 +187,25 @@ sender, and rate-limit values are hard-coded at the top of
 | `/sitemap.xml`, `/robots.txt` | static | |
 | `POST /api/contact.php` | `api/contact.php` | JSON `{ name, email, message, company }` (company is honeypot). Rate-limited to 5 / 10 min per IP. |
 
-## Visual treatment — locked
+## Visual treatment — locked (Tarkashila, 2026-09-16)
 
-- Dark theme. `--bg: #0e0e12`, `--accent: #d4a24c` (soft amber/gold).
-- Editorial serif headings (system stack — no webfont download).
-- Sections max-width 1100px, narrow articles 760px.
-- Subtle scroll-fade via IntersectionObserver (progressive
-  enhancement — content is visible by default without JS).
-- Single accent — amber/gold throughout. No agency-template gradients.
-- Portrait: soft-cornered rectangle, no neon glow.
+In sync with tarkashila.com. Tokens live in `assets/styles.css :root`.
+
+- **Light theme.** `--bg: #ffffff`, warm surface `--surface: #f7f6f4`,
+  ink text `--text: #0a0908` / muted `#3d3b38` / dim `#9a9691`.
+- **Accent: gold `--accent: #c19a28`** (hover `#a2801d` — darker on light).
+  Secondary green `#5b8c4a`. Single accent, no gradients-as-decoration.
+- **Plus Jakarta Sans** everywhere (Google Fonts). Headings 700/800, tight
+  tracking (h1 −0.03em). Body 16px.
+- **Dark pill brand badge** ("S." gold chip on ink pill) echoing Tarkashila's
+  "T." logo. Buttons are ink pills (dark bg, white text), radius 999px.
+- Eyebrows: uppercase, tracked, with a gold dot (`::before`).
+- Sections max-width 1200px, narrow articles 760px, gutter clamp(24px,5vw,64px).
+- Expo easing `cubic-bezier(.16,1,.3,1)` on transitions.
+- Subtle scroll-fade via IntersectionObserver (visible by default without JS).
+- Portrait: soft-cornered rectangle, soft light shadow (no neon glow).
+- Hero has a stat strip (6+ products / 3 countries / 100% direct access),
+  mirroring Tarkashila's hero.
 
 ## Real social URLs (confirmed)
 
@@ -260,8 +276,8 @@ sender, and rate-limit values are hard-coded at the top of
   Don't add sections to the home page without asking first — the home
   is intentionally minimal (hero + tile grid).
 - "change the accent colour" → edit `--accent` / `--accent-hover` /
-  `--accent-soft` / `--accent-line` in `assets/styles.css`. The
-  amber/gold was chosen 2026-05-29 — don't switch without confirming.
+  `--accent-soft` / `--accent-line` in `assets/styles.css`. Gold `#c19a28`
+  is Tarkashila's brand accent — don't switch without confirming.
 - "fix the seo" → all `<head>` content is in `_partials/head.php` and
   driven by per-page `$page_title` / `$page_description` /
   `$page_canonical` / `$page_ldjson` variables. Update those on the

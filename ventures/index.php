@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Ventures — Suryateja Manchikatla';
-$page_description = 'pdfonweb, leaselylite, Karibu Camps & Lodges, and Scholar Africa — what each is and what I do on them.';
+$page_description = 'Tarkashila products — pdfonweb and leaselylite — plus partner work with Karibu Camps & Lodges and Scholar Africa. What each is and what I do on it.';
 $page_canonical   = 'https://suryateja.pro/ventures/';
 $page_og_type     = 'website';
 $current_page     = 'ventures';
@@ -25,14 +25,14 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
     <div class="container">
       <header class="section-head">
         <p class="eyebrow">Ventures</p>
-        <h1>What I'm building &amp; where I work.</h1>
+        <h1>What I'm building at Tarkashila &amp; beyond.</h1>
       </header>
 
       <div class="venture-grid">
         <article class="venture-card">
           <header class="venture-head">
             <h2>pdfonweb</h2>
-            <span class="venture-role">Building</span>
+            <span class="venture-role">Tarkashila product</span>
           </header>
           <p>
             SaaS that turns PDFs into shareable interactive flipbooks
@@ -47,7 +47,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
         <article class="venture-card">
           <header class="venture-head">
             <h2>leaselylite</h2>
-            <span class="venture-role">Building</span>
+            <span class="venture-role">Tarkashila product</span>
           </header>
           <p>
             Multi-tenant property management SaaS for East African

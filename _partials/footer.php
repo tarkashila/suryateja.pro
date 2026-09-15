@@ -2,11 +2,12 @@
   <div class="container footer-inner">
     <p class="footer-copy">
       © <span id="footer-year">2026</span> Suryateja Manchikatla
-      · Built in Arusha, Tanzania
+      · Founder, Tarkashila<br />
+      Hyderabad, India &amp; East Africa
     </p>
     <p class="footer-brand">
-      <span class="vyomai-mark" aria-hidden="true">◇</span>
-      <span>Vyomai Studios</span>
+      <span class="brand-dot" aria-hidden="true">◆</span>
+      <span>Tarkashila</span>
     </p>
   </div>
 </footer>

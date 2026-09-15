@@ -1,6 +1,6 @@
 <?php
-$page_title       = 'Suryateja Manchikatla — Building pdfonweb + leaselylite · Arusha, Tanzania';
-$page_description = 'Entrepreneur and builder in Arusha, Tanzania. Building pdfonweb and leaselylite under Vyomai Studios. CRM, automation, and product engineering.';
+$page_title       = 'Suryateja Manchikatla — Founder, Tarkashila · pdfonweb + leaselylite';
+$page_description = 'Founder of Tarkashila — software that solves operational problems. Builder of pdfonweb and leaselylite, shipping products across India and East Africa.';
 $page_canonical   = 'https://suryateja.pro/';
 $page_og_type     = 'website';
 $current_page     = 'home';
@@ -11,30 +11,26 @@ $page_ldjson = <<<'JSON'
   "@type": "Person",
   "name": "Suryateja Manchikatla",
   "alternateName": "Surya Teja",
-  "jobTitle": "Digital & CRM Lead",
-  "description": "Entrepreneur building pdfonweb and leaselylite under Vyomai Studios. Digital & CRM Lead at Karibu Camps & Lodges.",
+  "jobTitle": "Founder",
+  "description": "Founder of Tarkashila, building software that solves operational problems. Builder of pdfonweb and leaselylite.",
   "url": "https://suryateja.pro/",
   "image": "https://suryateja.pro/assets/portrait.jpg",
   "email": "mailto:emailsuryateja.m@gmail.com",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Arusha",
-    "addressCountry": "Tanzania"
-  },
   "worksFor": {
     "@type": "Organization",
-    "name": "Karibu Camps & Lodges",
-    "url": "https://karibucamps.com"
+    "name": "Tarkashila",
+    "legalName": "Tarkashila Private Limited",
+    "url": "https://tarkashila.com"
   },
   "sameAs": [
     "https://www.linkedin.com/in/suryateja-ai/",
-    "https://github.com/vyomaaistudio",
+    "https://github.com/tarkashila",
     "https://x.com/suryatejaaibuff",
     "https://www.instagram.com/suryateja_manchikatla/",
     "https://www.facebook.com/share/1BN1rS27oD/",
+    "https://tarkashila.com",
     "https://pdfonweb.com",
-    "https://leaselylite.com",
-    "https://scholar.africa"
+    "https://leaselylite.com"
   ]
 }
 JSON;
@@ -47,18 +43,23 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy fade-in">
-        <p class="eyebrow">Arusha, Tanzania</p>
+        <p class="eyebrow">Founder, Tarkashila · Hyderabad &amp; East Africa</p>
         <h1>Suryateja Manchikatla</h1>
         <p class="lede">
-          Building <a href="https://pdfonweb.com" rel="noopener">pdfonweb</a>
-          + <a href="https://leaselylite.com" rel="noopener">leaselylite</a>
-          · CRM, automation &amp; product at
-          <a href="https://karibucamps.com" rel="noopener">Karibu Camps &amp; Lodges</a>.
+          I build and run software that solves operational problems. Founder of
+          <a href="https://tarkashila.com" rel="noopener">Tarkashila</a> —
+          the studio behind <a href="https://pdfonweb.com" rel="noopener">pdfonweb</a>
+          and <a href="https://leaselylite.com" rel="noopener">leaselylite</a>.
         </p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="/ventures/">See what I'm building</a>
-          <a class="btn btn-ghost" href="/contact/">Contact</a>
+          <a class="btn btn-ghost" href="/contact/">Start a conversation</a>
         </div>
+        <dl class="hero-stats" aria-label="At a glance">
+          <div class="hero-stat"><dt class="lbl">Products shipped</dt><dd class="num">6+</dd></div>
+          <div class="hero-stat"><dt class="lbl">Countries</dt><dd class="num">3</dd></div>
+          <div class="hero-stat"><dt class="lbl">Direct access</dt><dd class="num">100%</dd></div>
+        </dl>
       </div>
       <figure class="hero-portrait fade-in">
         <img
@@ -80,10 +81,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
       <div class="explore-grid">
         <a class="explore-tile explore-tile--lead" href="/ventures/">
           <p class="explore-eyebrow">01 · Ventures</p>
-          <h3>What I'm building &amp; where I work.</h3>
+          <h3>What I'm building at Tarkashila.</h3>
           <p class="explore-desc">
-            pdfonweb, leaselylite, Karibu Camps &amp; Lodges,
-            Scholar Africa — what they are and what I do on them.
+            pdfonweb, leaselylite, and the work across the studio —
+            plus where I partner outside it. What each is, and what I do on it.
           </p>
           <span class="explore-cta">Open Ventures <span aria-hidden="true">→</span></span>
         </a>
@@ -102,7 +103,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
 
         <a class="explore-tile" href="/services/">
           <p class="explore-eyebrow">04 · Services</p>
-          <h3>How I work with clients, on the side.</h3>
+          <h3>How I work with clients through Tarkashila.</h3>
           <span class="explore-cta">See Services <span aria-hidden="true">→</span></span>
         </a>
 
