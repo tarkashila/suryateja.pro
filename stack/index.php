@@ -25,63 +25,39 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
     <div class="container">
       <header class="section-head">
         <p class="eyebrow">Stack</p>
-        <h1>The tools I use day-to-day.</h1>
+        <h1>How I build.</h1>
       </header>
 
       <div class="stack-grid">
         <div class="stack-group">
-          <h2>Engineering</h2>
+          <h2>Build</h2>
           <ul>
-            <li>Node.js</li>
-            <li>PHP</li>
+            <li>Node.js &amp; PHP</li>
             <li>React</li>
+            <li>MySQL &amp; SQLite</li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <h2>Run</h2>
+          <ul>
             <li>Docker</li>
-            <li>MySQL</li>
-            <li>SQLite (better-sqlite3)</li>
-          </ul>
-        </div>
-        <div class="stack-group">
-          <h2>Infrastructure</h2>
-          <ul>
             <li>Self-hosted VPS</li>
-            <li>Cloudflare (DNS, TLS, CDN)</li>
-            <li>Cloudflare R2</li>
-            <li>nginx</li>
-            <li>GitHub Actions (self-hosted runner)</li>
+            <li>Cloudflare</li>
           </ul>
         </div>
         <div class="stack-group">
-          <h2>Operations</h2>
+          <h2>Grow</h2>
           <ul>
-            <li>n8n</li>
-            <li>Salesforce</li>
-            <li>Tourplan</li>
-            <li>Google Workspace</li>
-          </ul>
-        </div>
-        <div class="stack-group">
-          <h2>AI</h2>
-          <ul>
-            <li>Claude integration patterns</li>
-            <li>Prompt engineering</li>
             <li>AI-augmented workflows</li>
-            <li>Puppeteer + LLM pipelines</li>
-          </ul>
-        </div>
-        <div class="stack-group">
-          <h2>SEO</h2>
-          <ul>
-            <li>Schema-driven SEO</li>
-            <li>AEO (Answer Engine Optimization)</li>
-            <li>IndexNow</li>
-            <li>Server-side analytics</li>
+            <li>Technical SEO</li>
+            <li>CRM &amp; automation</li>
           </ul>
         </div>
       </div>
 
       <nav class="page-next" aria-label="Continue">
-        <a class="btn btn-primary" href="/services/">See services →</a>
-        <a class="btn btn-ghost" href="/ventures/">Back to ventures</a>
+        <a class="btn btn-primary" href="https://tarkashila.com" rel="noopener">Work with Tarkashila →</a>
+        <a class="btn btn-ghost" href="/contact/">Get in touch</a>
       </nav>
     </div>
   </section>

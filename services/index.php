@@ -32,30 +32,26 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
         <article class="service-card">
           <h2>CRM Consulting</h2>
           <p>
-            Salesforce, HubSpot, or custom CRM. I help teams move from
-            spreadsheets and email threads to a clean pipeline with the
-            automations, reporting, and integrations they actually need.
-            Practical setup, not a year-long transformation programme.
+            Move from spreadsheets to a clean pipeline, with the automations
+            and reporting you actually need. Practical setup, not a year-long
+            programme.
           </p>
         </article>
 
         <article class="service-card">
           <h2>Custom Software Development</h2>
           <p>
-            Small SaaS, internal tools, dashboards, and AI-augmented
-            workflows. Full-stack on Node, PHP, React, MySQL or SQLite,
-            shipped to a VPS behind Cloudflare. I prefer to own the box
-            and ship the simple version first.
+            SaaS, internal tools, dashboards, and AI-augmented workflows.
+            Full-stack, shipped and run in production, simple version first.
           </p>
         </article>
 
         <article class="service-card">
           <h2>Search Engine Optimization (SEO)</h2>
           <p>
-            Technical and schema-driven SEO for SaaS, tourism, and
-            education sites. Crawlability, Core Web Vitals, structured
-            data, IndexNow, and content engineered for Answer Engine
-            Optimization — not keyword stuffing.
+            Technical, schema-driven SEO. Crawlability, Core Web Vitals,
+            structured data, and content built for answer engines, not
+            keyword stuffing.
           </p>
         </article>
       </div>
@@ -66,8 +62,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
       </p>
 
       <nav class="page-next" aria-label="Continue">
-        <a class="btn btn-primary" href="/contact/">Start a conversation →</a>
-        <a class="btn btn-ghost" href="/about/">Read about me first</a>
+        <a class="btn btn-primary" href="https://tarkashila.com" rel="noopener">Work with Tarkashila →</a>
+        <a class="btn btn-ghost" href="/contact/">Start a conversation</a>
       </nav>
     </div>
   </section>

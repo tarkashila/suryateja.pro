@@ -24,41 +24,26 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
   <section class="section section-about section-page fade-in">
     <div class="container narrow">
       <p class="eyebrow">About</p>
-      <h1>One operator, three time zones of work.</h1>
+      <h1>The short version.</h1>
       <p>
-        I'm Suryateja Manchikatla — Indian-born, working across Hyderabad
-        and East Africa. A one-man-army across product, engineering, CRM,
-        and SEO. I move between code and commercial work in a single day,
-        and I prefer shipping the simple version and iterating.
+        I'm Suryateja Manchikatla, founder of
+        <a href="https://tarkashila.com" rel="noopener">Tarkashila</a>. I work
+        across product, engineering, CRM, and SEO, and I prefer shipping the
+        simple version and iterating.
       </p>
       <p>
-        I'm the founder of <a href="https://tarkashila.com" rel="noopener">Tarkashila</a>
-        — a software studio that designs, builds, and <em>runs</em> its own
-        products. In production now:
-        <a href="https://pdfonweb.com" rel="noopener">pdfonweb</a>, which turns
-        static PDFs into shareable, AI-redesigned interactive flipbooks hosted
-        on user-owned subdomains, and
-        <a href="https://leaselylite.com" rel="noopener">leaselylite</a>, a
-        multi-tenant property-management SaaS for East African landlords and
-        agents with a real billing engine and a dedicated database per landlord.
-      </p>
-      <p>
-        Because we run what we build, I know what software looks like under
-        real-world pressure — not just at handover. I also lead CRM and
-        automation work with
-        <a href="https://karibucamps.com" rel="noopener">Karibu Camps &amp;
-        Lodges</a>, a multi-camp hospitality group across the northern Tanzania
-        circuit. Before this: six years in B2B sales and partner development at
-        Hikvision, Dahua, and PGR Systems in Hyderabad, building distribution
-        networks of 600+ partners across Andhra Pradesh and Telangana.
+        Tarkashila builds and runs its own software, so I know what it looks
+        like under real-world pressure, not just at handover.
+        <a href="https://pdfonweb.com" rel="noopener">pdfonweb</a> and
+        <a href="https://leaselylite.com" rel="noopener">leaselylite</a> are
+        two of ours, in production now.
       </p>
       <p class="about-closer">
-        Open to conversations across the East African tourism, hospitality,
-        tech, and education ecosystem.
+        If you have a problem worth solving, the studio is the place to start.
       </p>
 
       <nav class="page-next" aria-label="Continue">
-        <a class="btn btn-primary" href="/ventures/">See what I'm building →</a>
+        <a class="btn btn-primary" href="https://tarkashila.com" rel="noopener">Work with Tarkashila →</a>
         <a class="btn btn-ghost" href="/contact/">Or get in touch</a>
       </nav>
     </div>

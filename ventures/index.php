@@ -35,9 +35,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
             <span class="venture-role">Tarkashila product</span>
           </header>
           <p>
-            SaaS that turns PDFs into shareable interactive flipbooks
-            hosted on user-owned subdomains. AI-powered redesign in the
-            backend, genuinely free tier, built-in analytics.
+            Turns PDFs into shareable interactive flipbooks on your own
+            subdomain. AI redesign, a real free tier, built-in analytics.
           </p>
           <a class="venture-link" href="https://pdfonweb.com" rel="noopener">
             pdfonweb.com <span aria-hidden="true">→</span>
@@ -50,10 +49,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
             <span class="venture-role">Tarkashila product</span>
           </header>
           <p>
-            Multi-tenant property management SaaS for East African
-            landlords and agents. Units, tenants, invoices, and a full
-            billing engine with ACID accounting. Dedicated database and
-            tenant-portal subdomain per landlord.
+            Property management for East African landlords and agents.
+            Units, tenants, invoices, and a real billing engine, with a
+            dedicated database per landlord.
           </p>
           <a class="venture-link" href="https://leaselylite.com" rel="noopener">
             leaselylite.com <span aria-hidden="true">→</span>
@@ -66,9 +64,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
             <span class="venture-role">Digital &amp; CRM Lead</span>
           </header>
           <p>
-            Multi-camp hospitality group across Serengeti, Ngorongoro,
-            Tarangire and Mara. I lead CRM, automation, reporting, and
-            the digital data layer that feeds the brand and social team.
+            A safari hospitality group. I lead CRM, automation, and
+            reporting, the data layer behind their decisions.
           </p>
           <a class="venture-link" href="https://karibucamps.com" rel="noopener">
             karibucamps.com <span aria-hidden="true">→</span>
@@ -81,10 +78,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
             <span class="venture-role">Part of the team</span>
           </header>
           <p>
-            Verification-led scholarship discovery platform for African
-            students. I contribute on engineering, SEO, and product
-            alongside the founding team — the idea isn't mine, I'm part
-            of it.
+            Scholarship discovery for African students. I help on
+            engineering, SEO, and product alongside the founding team.
           </p>
           <a class="venture-link" href="https://scholar.africa" rel="noopener">
             scholar.africa <span aria-hidden="true">→</span>
@@ -93,7 +88,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
       </div>
 
       <nav class="page-next" aria-label="Continue">
-        <a class="btn btn-primary" href="/stack/">See the stack →</a>
+        <a class="btn btn-primary" href="https://tarkashila.com" rel="noopener">Work with Tarkashila →</a>
         <a class="btn btn-ghost" href="/contact/">Or start a conversation</a>
       </nav>
     </div>

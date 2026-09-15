@@ -24,74 +24,20 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
 <main id="main">
   <div class="container narrow">
     <p class="now-meta">Last updated: September 2026 · Hyderabad &amp; East Africa</p>
-    <h1>What I'm working on right now.</h1>
+    <h1>Right now.</h1>
 
     <p>
-      A short, honest list of what's actually on my plate this month.
-      Inspired by <a href="https://nownownow.com/about" rel="noopener">Derek
-      Sivers' /now movement</a>. I update it when reality shifts, not on a
-      schedule.
+      Most of my time goes into <a href="https://tarkashila.com" rel="noopener">Tarkashila</a>,
+      building and running <a href="https://pdfonweb.com" rel="noopener">pdfonweb</a>
+      and <a href="https://leaselylite.com" rel="noopener">leaselylite</a>.
+    </p>
+    <p>
+      Not doing: buying backlinks, or AI-generated content at scale. Ever.
     </p>
 
-    <h2>Building at Tarkashila</h2>
-    <ul>
-      <li>
-        <strong>pdfonweb</strong> — wiring up AI-redesigned flipbook
-        templates, sharper analytics on free-tier accounts, and the
-        subdomain provisioning flow.
-      </li>
-      <li>
-        <strong>leaselylite</strong> — finishing the per-landlord database
-        isolation, tenant-portal subdomains, and the invoice → receipt →
-        ledger loop.
-      </li>
-      <li>
-        <strong>Tarkashila</strong> — standing up the studio's own
-        surface and bringing my personal site (this one) in sync with it.
-      </li>
-    </ul>
-
-    <h2>At Karibu Camps &amp; Lodges</h2>
-    <ul>
-      <li>
-        CRM cleanup and pipeline hygiene across the camps' enquiry flow.
-      </li>
-      <li>
-        Reporting layer between Tourplan and the data the brand &amp;
-        social team need to make decisions.
-      </li>
-    </ul>
-
-    <h2>With Scholar Africa</h2>
-    <ul>
-      <li>
-        Page-quality polish on the 162-page React SPA — SEO, structured
-        data, and helping the team think through verification workflows.
-      </li>
-    </ul>
-
-    <h2>Reading / Learning</h2>
-    <ul>
-      <li>
-        Going deeper on prompt-cache patterns and agentic Claude API
-        workflows.
-      </li>
-      <li>
-        The May 2026 Google Core Update aftermath — how it actually moved
-        things on real sites I run.
-      </li>
-    </ul>
-
-    <h2>Not doing</h2>
-    <ul>
-      <li>No new client work this month.</li>
-      <li>No buying backlinks. Ever.</li>
-      <li>No AI-generated content at scale.</li>
-    </ul>
-
     <nav class="page-next" aria-label="Continue">
-      <a class="btn btn-ghost" href="/">← Back to home</a>
-      <a class="btn btn-primary" href="/contact/">Say hello</a>
+      <a class="btn btn-primary" href="https://tarkashila.com" rel="noopener">Work with Tarkashila →</a>
+      <a class="btn btn-ghost" href="/contact/">Say hello</a>
     </nav>
   </div>
 </main>

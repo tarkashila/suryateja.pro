@@ -27,9 +27,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
         <p class="eyebrow">Contact</p>
         <h1>Say hello.</h1>
         <p class="contact-lede">
-          Tell me what you're building or where you're stuck. Email is fastest;
-          the form works too — it lands in my inbox and a log I actually read.
-          I reply within 48 hours.
+          For project work, the front door is
+          <a href="https://tarkashila.com" rel="noopener">Tarkashila</a>.
+          For anything else, this reaches me directly. I reply within 48 hours.
         </p>
       </header>
 
