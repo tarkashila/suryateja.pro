@@ -22,6 +22,7 @@ $nav_items = [
       <?php foreach ($nav_items as $item): ?>
         <a href="<?= $item['href'] ?>"<?= $current_page === $item['slug'] ? ' aria-current="page"' : '' ?>><?= $item['label'] ?></a>
       <?php endforeach; ?>
+      <a class="nav-cta" href="https://tarkashila.com" rel="noopener">Tarkashila <span aria-hidden="true">→</span></a>
     </nav>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
       <span></span><span></span><span></span>
@@ -31,5 +32,6 @@ $nav_items = [
     <?php foreach ($nav_items as $item): ?>
       <a href="<?= $item['href'] ?>"<?= $current_page === $item['slug'] ? ' aria-current="page"' : '' ?>><?= $item['label'] ?></a>
     <?php endforeach; ?>
+    <a class="mobile-nav-cta" href="https://tarkashila.com" rel="noopener">Tarkashila <span aria-hidden="true">→</span></a>
   </nav>
 </header>

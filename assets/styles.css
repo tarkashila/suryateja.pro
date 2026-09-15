@@ -194,6 +194,37 @@ h1 { letter-spacing: -0.03em; }
 }
 .primary-nav a:hover::after { transform: scaleX(1); }
 
+/* Tarkashila nav CTA — distinct gold pill, the menu-bar funnel */
+.primary-nav a.nav-cta {
+  padding: 8px 15px;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius-pill);
+  color: var(--accent-hover);
+  font-weight: 700;
+  background: var(--accent-soft);
+  transition: background .18s var(--ease-out), color .18s var(--ease-out), border-color .18s var(--ease-out), transform .12s var(--ease-out);
+}
+.primary-nav a.nav-cta::after { display: none; }
+.primary-nav a.nav-cta:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.primary-nav a.nav-cta span { transition: transform .15s var(--ease-out); display: inline-block; }
+.primary-nav a.nav-cta:hover span { transform: translateX(3px); }
+
+.mobile-nav-cta {
+  margin: 8px var(--container-pad) 0;
+  padding: 12px 16px !important;
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius-pill);
+  color: var(--accent-hover) !important;
+  font-weight: 700;
+  background: var(--accent-soft);
+  text-align: center;
+}
+
 .nav-toggle {
   display: none;
   background: none;
