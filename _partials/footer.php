@@ -5,10 +5,11 @@
       · Founder, Tarkashila<br />
       Hyderabad, India &amp; East Africa
     </p>
-    <p class="footer-brand">
+    <a class="footer-brand" href="https://tarkashila.com" rel="noopener">
       <span class="brand-dot" aria-hidden="true">◆</span>
       <span>Tarkashila</span>
-    </p>
+      <span aria-hidden="true">→</span>
+    </a>
   </div>
 </footer>
 
