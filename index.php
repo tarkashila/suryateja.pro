@@ -44,7 +44,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
     <div class="container hero-grid">
       <div class="hero-copy fade-in">
         <p class="eyebrow">Suryateja Manchikatla · Founder, Tarkashila</p>
-        <h1 class="hero-creed">I build software.<br />Then I <span class="accent">run</span> it.</h1>
+        <h1 class="hero-creed hero-heading-reveal">
+          <span class="hl-mask"><span class="hl-line">I build software.</span></span>
+          <span class="hl-mask"><span class="hl-line">Then I <span class="accent">run</span> it.</span></span>
+        </h1>
         <p class="lede">
           I'm the founder of <a href="https://tarkashila.com" rel="noopener">Tarkashila</a>,
           a studio that builds and runs its own software. Got a problem worth

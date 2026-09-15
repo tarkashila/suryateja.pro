@@ -51,6 +51,7 @@ function _h(string $s): string { return htmlspecialchars($s, ENT_QUOTES | ENT_SU
   <meta name="twitter:image"       content="<?= _h($page_og_image) ?>" />
 
   <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="stylesheet" href="/assets/chrome.css" />
 
   <?php if ($page_ldjson !== ''): ?>
   <script type="application/ld+json"><?= $page_ldjson ?></script>

@@ -1,7 +1,6 @@
 <?php
-// Shared site header + primary nav + mobile-nav scaffold.
-// Pages set $current_page to one of: 'home', 'about', 'ventures', 'stack',
-// 'services', 'contact', 'now' — used for aria-current on the active link.
+// Header ported from tarkashila.com — floating brand pill + "Menu" pill.
+// $current_page drives aria-current on the active link.
 $current_page = $current_page ?? '';
 
 $nav_items = [
@@ -12,26 +11,22 @@ $nav_items = [
   ['slug' => 'contact',  'href' => '/contact/',  'label' => 'Contact'],
 ];
 ?>
-<header class="site-header">
-  <div class="container header-inner">
-    <a class="brand" href="/" aria-label="Suryateja Manchikatla — home">
-      <span class="brand-mark">S.</span>
-      <span class="brand-word">Suryateja</span>
-    </a>
-    <nav class="primary-nav" aria-label="Primary">
+<div class="hdr-logo">
+  <a class="nav-logo" href="/" aria-label="Suryateja Manchikatla — home">
+    <span class="mk" aria-hidden="true">S.</span><span>Suryateja</span>
+  </a>
+</div>
+<div class="hdr-menu" id="hdr-menu">
+  <div class="hdr-links">
+    <nav class="hdr-links-inner" aria-label="Primary">
       <?php foreach ($nav_items as $item): ?>
         <a href="<?= $item['href'] ?>"<?= $current_page === $item['slug'] ? ' aria-current="page"' : '' ?>><?= $item['label'] ?></a>
       <?php endforeach; ?>
-      <a class="nav-cta" href="https://tarkashila.com" rel="noopener">Tarkashila <span aria-hidden="true">→</span></a>
+      <a class="is-cta" href="https://tarkashila.com" rel="noopener">Tarkashila →</a>
     </nav>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
   </div>
-  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile" hidden>
-    <?php foreach ($nav_items as $item): ?>
-      <a href="<?= $item['href'] ?>"<?= $current_page === $item['slug'] ? ' aria-current="page"' : '' ?>><?= $item['label'] ?></a>
-    <?php endforeach; ?>
-    <a class="mobile-nav-cta" href="https://tarkashila.com" rel="noopener">Tarkashila <span aria-hidden="true">→</span></a>
-  </nav>
-</header>
+  <button class="hdr-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="hdr-menu">
+    <span class="hdr-toggle-label">Menu</span>
+    <span class="hdr-toggle-icon" aria-hidden="true"><span></span><span></span></span>
+  </button>
+</div>

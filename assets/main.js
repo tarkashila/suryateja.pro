@@ -1,4 +1,4 @@
-// suryateja.pro — minimal client JS: scroll-fade, header state, mobile nav, contact form.
+// suryateja.pro — chrome behaviour ported from tarkashila.com + contact form.
 
 (function () {
   'use strict';
@@ -7,49 +7,88 @@
   var yearEl = document.getElementById('footer-year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  // Header scroll state
-  var header = document.querySelector('.site-header');
-  if (header) {
-    var onScroll = function () {
-      header.classList.toggle('is-scrolled', window.scrollY > 8);
+  // Header menu pill toggle
+  var hdrMenu = document.getElementById('hdr-menu');
+  var hdrToggle = hdrMenu && hdrMenu.querySelector('.hdr-toggle');
+  if (hdrMenu && hdrToggle) {
+    var setHdr = function (open) {
+      hdrMenu.classList.toggle('is-open', open);
+      hdrToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    hdrToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setHdr(!hdrMenu.classList.contains('is-open'));
+    });
+    document.addEventListener('click', function (e) {
+      if (hdrMenu.classList.contains('is-open') && !hdrMenu.contains(e.target)) setHdr(false);
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setHdr(false); });
+    hdrMenu.querySelectorAll('.hdr-links a').forEach(function (a) {
+      a.addEventListener('click', function () { setHdr(false); });
+    });
   }
 
-  // Mobile nav
-  var toggle = document.querySelector('.nav-toggle');
-  var mobileNav = document.getElementById('mobile-nav');
-  if (toggle && mobileNav) {
-    toggle.addEventListener('click', function () {
-      var open = mobileNav.dataset.open === 'true';
-      mobileNav.dataset.open = open ? 'false' : 'true';
-      mobileNav.hidden = open;
-      toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+  // Footer nav pill toggle
+  var fnav = document.getElementById('fnavpill');
+  var fnavToggle = fnav && fnav.querySelector('.fnav-toggle');
+  if (fnav && fnavToggle) {
+    fnavToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = !fnav.classList.contains('is-open');
+      fnav.classList.toggle('is-open', open);
+      fnavToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-    mobileNav.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') {
-        mobileNav.dataset.open = 'false';
-        mobileNav.hidden = true;
-        toggle.setAttribute('aria-expanded', 'false');
+    document.addEventListener('click', function (e) {
+      if (fnav.classList.contains('is-open') && !fnav.contains(e.target)) {
+        fnav.classList.remove('is-open');
+        fnavToggle.setAttribute('aria-expanded', 'false');
       }
     });
   }
 
-  // Scroll fade
-  var fades = document.querySelectorAll('.fade-in');
-  if ('IntersectionObserver' in window && fades.length) {
+  // Back to top
+  var btop = document.querySelector('.bento-ftr .btop');
+  if (btop) {
+    btop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // Header hide-on-scroll-down, show-on-scroll-up
+  var logo = document.querySelector('.hdr-logo');
+  var menu = document.querySelector('.hdr-menu');
+  if (logo && menu) {
+    var lastY = window.scrollY, ticking = false;
+    var onScroll = function () {
+      var y = window.scrollY;
+      var hide = y > 120 && y > lastY;
+      // don't hide while the menu is open
+      if (!menu.classList.contains('is-open')) {
+        logo.classList.toggle('is-hidden', hide);
+        menu.classList.toggle('is-hidden', hide);
+      }
+      lastY = y;
+      ticking = false;
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
+    }, { passive: true });
+  }
+
+  // Scroll reveal (mt-reveal) + fade-in
+  var reveals = document.querySelectorAll('.mt-reveal, .fade-in');
+  if ('IntersectionObserver' in window && reveals.length) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
+          entry.target.classList.add('in-view', 'is-visible');
           io.unobserve(entry.target);
         }
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
-    fades.forEach(function (el) { io.observe(el); });
+    reveals.forEach(function (el) { io.observe(el); });
   } else {
-    fades.forEach(function (el) { el.classList.add('is-visible'); });
+    reveals.forEach(function (el) { el.classList.add('in-view', 'is-visible'); });
   }
 
   // Contact form
