@@ -41,6 +41,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
 
 <main id="main">
   <section class="hero">
+    <span class="hero-mark" aria-hidden="true">S</span>
     <div class="container hero-grid">
       <div class="hero-copy fade-in">
         <p class="eyebrow">Suryateja Manchikatla · Founder, Tarkashila</p>

@@ -141,6 +141,25 @@ main > .section-page:first-child { padding-top: clamp(104px, 12vw, 140px); }
   .bento-ftr .ci:hover .ic-mail .mail-flap,.bento-ftr .ci:hover .ic-pin svg{animation:none}
 }
 
+/* ============ Oversized "S" watermark (ghost glyph, from tarkashila.com) ============ */
+.hero{position:relative;overflow:hidden}
+.hero .container{position:relative;z-index:1}
+.hero-mark{
+  position:absolute;
+  top:clamp(-2rem,-1vw,0rem);
+  right:clamp(-5rem,-7vw,-2.5rem);
+  z-index:0;
+  pointer-events:none;
+  user-select:none;
+  font-family:var(--font-mono),monospace;
+  font-weight:700;
+  line-height:.8;
+  letter-spacing:-.04em;
+  font-size:clamp(16rem,36vw,34rem);
+  color:#0a09080a;   /* faint ink ghost on the paper */
+}
+@media (max-width:880px){ .hero-mark{ top:auto; bottom:-3rem; right:-3rem; font-size:clamp(12rem,44vw,20rem); } }
+
 /* ============ Full-bleed stack marquee (from tarkashila.com) ============ */
 .marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);padding:1.5rem 0;white-space:nowrap;overflow:hidden}
 .marquee-track{will-change:transform;align-items:center;width:max-content;display:inline-flex;animation:marqueeScroll 34s linear infinite}
