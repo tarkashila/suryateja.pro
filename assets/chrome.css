@@ -40,6 +40,14 @@ main > .section-page:first-child { padding-top: clamp(104px, 12vw, 140px); }
 .hdr-menu.is-open .hdr-toggle-icon span:first-child{transform:translate(-50%,-50%)rotate(45deg)}
 .hdr-menu.is-open .hdr-toggle-icon span:nth-child(2){transform:translate(-50%,-50%)rotate(-45deg)}
 
+/* Desktop: nav links shown inline in the pill, no Menu click needed */
+@media (min-width:681px){
+  .hdr-links{opacity:1;grid-template-columns:1fr}
+  .hdr-links a{opacity:1;transform:none}
+  .hdr-links-inner{padding-left:8px;padding-right:6px}
+  .hdr-toggle{display:none}
+}
+
 @media (max-width:680px){
   .hdr-menu{overflow:visible}
   .hdr-links{background:var(--ink);border-radius:var(--r-lg);opacity:0;transform-origin:100% 0;pointer-events:none;width:max-content;min-width:190px;max-width:74vw;transition:opacity var(--dur-mid) var(--ease-out),transform var(--dur-mid) var(--ease-out);padding:6px;display:block;position:absolute;top:calc(100% + 10px);right:0;transform:translateY(-8px)scale(.98);box-shadow:0 16px 40px #0a090847}
