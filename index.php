@@ -68,6 +68,17 @@ include $_SERVER['DOCUMENT_ROOT'] . '/_partials/header.php';
     </div>
   </section>
 
+  <?php
+  $marquee = ['Node', 'PHP', 'React', 'MySQL', 'SQLite', 'Docker', 'Cloudflare', 'Claude', 'Puppeteer', 'n8n', 'SEO'];
+  ?>
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <?php for ($i = 0; $i < 2; $i++): ?>
+        <?php foreach ($marquee as $m): ?><span class="marquee-item"><?= $m ?><span class="marquee-dot">&#10022;</span></span><?php endforeach; ?>
+      <?php endfor; ?>
+    </div>
+  </div>
+
   <section class="section section-explore fade-in">
     <div class="container">
       <header class="section-head">

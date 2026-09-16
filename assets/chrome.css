@@ -141,6 +141,15 @@ main > .section-page:first-child { padding-top: clamp(104px, 12vw, 140px); }
   .bento-ftr .ci:hover .ic-mail .mail-flap,.bento-ftr .ci:hover .ic-pin svg{animation:none}
 }
 
+/* ============ Full-bleed stack marquee (from tarkashila.com) ============ */
+.marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);padding:1.5rem 0;white-space:nowrap;overflow:hidden}
+.marquee-track{will-change:transform;align-items:center;width:max-content;display:inline-flex;animation:marqueeScroll 34s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-item{font-family:var(--font-mono),monospace;letter-spacing:.02em;text-transform:uppercase;color:var(--ink-3);gap:2rem;padding:0 2rem;font-size:clamp(.9rem,1.4vw,1.15rem);font-weight:400;display:inline-flex;align-items:center}
+.marquee-dot{color:var(--gold);font-size:.6em}
+@keyframes marqueeScroll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+
 /* ============ Hero line reveal + scroll reveal (Tarkashila motion) ============ */
 .hero-heading-reveal .hl-mask{padding-bottom:.08em;display:block;overflow:hidden}
 .hero-heading-reveal .hl-line{opacity:0;filter:blur(4px);animation:heroLineIn var(--dur-slow) var(--ease-out) both;display:block;transform:translateY(110%)}
