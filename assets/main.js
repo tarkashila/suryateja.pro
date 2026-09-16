@@ -10,10 +10,12 @@
   // Header menu pill toggle
   var hdrMenu = document.getElementById('hdr-menu');
   var hdrToggle = hdrMenu && hdrMenu.querySelector('.hdr-toggle');
+  var hdrLabel = hdrToggle && hdrToggle.querySelector('.hdr-toggle-label');
   if (hdrMenu && hdrToggle) {
     var setHdr = function (open) {
       hdrMenu.classList.toggle('is-open', open);
       hdrToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (hdrLabel) hdrLabel.textContent = open ? 'Close' : 'Menu';
     };
     hdrToggle.addEventListener('click', function (e) {
       e.stopPropagation();
